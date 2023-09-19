@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Alert from "../components/Alert";
+import Alert from "../../components/Alert";
 import axios from "axios";
+
 
 const Register = () => {
   const [name, setName] = useState("");

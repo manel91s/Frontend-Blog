@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Alert from "../components/Alert";
+import { validateEmail } from "../../Helpers/validation";
+import Alert from "../../components/Alert";
+
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [alert, setAlert] = useState({});
-  
-  const validateEmail = (email) => {
-    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return regex.test(email);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

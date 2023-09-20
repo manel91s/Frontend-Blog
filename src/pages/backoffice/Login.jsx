@@ -13,6 +13,35 @@ const Login = () => {
 
   const isValidEmail = validateEmail(email);
 
+  const fetchApiGetToken = async () => {
+    return await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/login_check`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: email,
+          password,
+        }),
+      }
+    );
+  }
+
+  const fetchApiLogin = async () => {
+      return await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -34,45 +63,26 @@ const Login = () => {
 
     try {
 
-      const userLogin = fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/user/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
-      const userToken = fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/login_check`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: email,
-            password,
-          }),
-        }
-      );
-      const responses = await Promise.all([userLogin, userToken]);
+      const getUser = await fetchApiLogin();
+      const user = await getUser.json();
 
-      const user = await responses[0].json();
-      const { token } = await responses[1].json();
-      
+      if(getUser.status !== 200) throw new Error(user.msg);
+
+      const getToken = await fetchApiGetToken();
+      const token = await getToken.json();
+
       setAlert({});
       localStorage.setItem('token', token);
       setAuth(user);
 
     } catch (error) {
-      const { data } = error.response;
 
+      const msg = error.response ? error.response.data : error.message;
+      
       setAlert({
-        msg: data.msg,
-        error: true,
-      });
+        msg,
+        error:true
+      })
     }
   };
 

@@ -63,8 +63,10 @@ const UsersSelector = () => {
       )}
     </select>
 
-    {loadImage ? 
-        <img src={`${import.meta.env.VITE_BACKEND_URL}/api/images/${image}`}></img> 
+    {loadImage ?
+        <div className="flex justify-center items-center mt-5">
+        <img className="text-center w-full h-auto max-w-lg rounded-lg" src={`${import.meta.env.VITE_BACKEND_URL}/api/images/${image}`}></img>
+        </div>
     : ''}
     </>
   );

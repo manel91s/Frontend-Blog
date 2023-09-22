@@ -10,6 +10,7 @@ import ConfirmAccount from "./pages/backoffice/ConfirmAccount";
 import RestorePassword from "./pages/backoffice/RestorePassword";
 import { AuthProvider } from "./context/AuthProvider";
 import { UsersProvider } from "./context/UsersProvider";
+import { PostProvider } from "./context/PostProvider";
 import ProtectedRoute from "./layouts/ProtectedRoute";
 import Posts from "./pages/backoffice/Posts";
 import NewPost from "./pages/backoffice/NewPost";
@@ -20,25 +21,27 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <UsersProvider>
-            <Routes>
-              <Route path="/" element={<AuthLayout />}>
-                <Route index element={<Login />} />
-                <Route path="register" element={<Register />} />
-                <Route path="forgot-password" element={<ForgotPassword />} />
-                <Route
-                  path="restore-password/:token"
-                  element={<RestorePassword />}
-                />
-                <Route path="confirm/:id" element={<ConfirmAccount />} />
-              </Route>
-            </Routes>
+            <PostProvider>
+              <Routes>
+                <Route path="/" element={<AuthLayout />}>
+                  <Route index element={<Login />} />
+                  <Route path="register" element={<Register />} />
+                  <Route path="forgot-password" element={<ForgotPassword />} />
+                  <Route
+                    path="restore-password/:token"
+                    element={<RestorePassword />}
+                  />
+                  <Route path="confirm/:id" element={<ConfirmAccount />} />
+                </Route>
+              </Routes>
 
-            <Routes>
-              <Route path="/posts" element={<ProtectedRoute />}>
-                <Route index element={<Posts />} />
-                <Route path="new-post" element={<NewPost />} />
-              </Route>
-            </Routes>
+              <Routes>
+                <Route path="/posts" element={<ProtectedRoute />}>
+                  <Route index element={<Posts />} />
+                  <Route path="new-post" element={<NewPost />} />
+                </Route>
+              </Routes>
+            </PostProvider>
           </UsersProvider>
         </AuthProvider>
       </BrowserRouter>

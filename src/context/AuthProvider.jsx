@@ -47,6 +47,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       userAuthenticate();
     };
+    
   }, []);
 
   return (

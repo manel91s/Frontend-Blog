@@ -14,15 +14,16 @@ const Header = () => {
                 className="rounded-lg lg:w-96 block p-2 border"
             />
 
-            <div>
+            <div className="flex items-center gap-4">
                 <Link 
                     to="/posts"
-                    className="font-nold uppercase"
+                    className="font-bold uppercase"
                 >Posts</Link>
 
                 <button
                     type="button"
-                ></button>
+                    className="text-white bg-teal-600 p-3 rounded-md uppercase font-bold"
+                >Cerrar Sesión</button>
             </div>
         </div>
     </header>

@@ -7,7 +7,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
 
   const [auth, setAuth] = useState({});
-  const [loading, setLoading, cargando] = useState(true);
+  const [loading, setLoading] = useState(true);
   
   const navigate = useNavigate();
 
@@ -32,20 +32,21 @@ const AuthProvider = ({ children }) => {
           `${import.meta.env.VITE_BACKEND_URL}/api/user/check`,
           config
         );
-
+        
         setAuth(data);
         navigate('/posts');
       } catch (error) {
         setAuth({})
+       
       } finally {
         setLoading(false);
       }
-      
-      return () => {
-        userAuthenticate();
-      };
+    
     };
-    userAuthenticate();
+
+    return () => {
+      userAuthenticate();
+    };
   }, []);
 
   return (

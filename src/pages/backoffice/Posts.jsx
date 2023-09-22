@@ -2,7 +2,9 @@ import React from 'react'
 
 const Posts = () => {
   return (
-    <div>Posts</div>
+    <>
+      <h1 className="text-4xl font-black">Posts</h1>
+    </>
   )
 }
 

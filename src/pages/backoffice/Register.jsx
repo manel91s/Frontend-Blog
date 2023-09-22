@@ -44,15 +44,17 @@ const Register = () => {
     setAlert({});
 
     try {
+      
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('surname', surname);
+      formData.append('email', email);
+      formData.append('password', password);
+      formData.append('avatar', avatar);
+
       const { data } = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/user/registration`,
-        {
-          name,
-          surname,
-          email,
-          password,
-        }
-      );
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/registration`, formData
+        );
       
       setAlert({
         msg: data.msg,
@@ -62,7 +64,7 @@ const Register = () => {
       setName('');
       setSurname('');
       setEmail('');
-      setAvatar('');
+      setAvatar(null);
       setPassword('');
       setRepeatPassword('');
 
@@ -153,8 +155,7 @@ const Register = () => {
             id="avatar"
             type="file"
             className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
-            value={avatar}
-            onChange={(e) => setAvatar(e.target.value)}
+            onChange={(e) => setAvatar(e.target.files[0])}
           />
         </div>
 

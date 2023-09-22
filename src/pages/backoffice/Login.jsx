@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Alert from "../../components/Alert";
 import { validateEmail } from "../../Helpers/validation";
 import useAuth from "../../hooks/useAuth";
@@ -12,6 +12,8 @@ const Login = () => {
   const { setAuth } = useAuth();
 
   const isValidEmail = validateEmail(email);
+
+  const navigate = useNavigate();
 
   const fetchApiGetToken = async () => {
     return await fetch(
@@ -69,12 +71,11 @@ const Login = () => {
       if(getUser.status !== 200) throw new Error(user.msg);
 
       const getToken = await fetchApiGetToken();
-      const token = await getToken.json();
-
+      const { token } = await getToken.json();
       setAlert({});
       localStorage.setItem('token', token);
       setAuth(user);
-
+      navigate('/posts');
     } catch (error) {
 
       const msg = error.response ? error.response.data : error.message;

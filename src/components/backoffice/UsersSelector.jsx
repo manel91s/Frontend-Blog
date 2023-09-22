@@ -30,7 +30,7 @@ const UsersSelector = () => {
     };
   }, []);
 
-  const handleChangeImage = async (e) => {
+  const handleChangeImage = (e) => {
 
     const idUser = parseInt(e.target.value);
     const user = users.filter((user) => user.id === idUser);

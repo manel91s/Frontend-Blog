@@ -4,7 +4,6 @@ import PreviewPost from "../../components/backoffice/PreviewPost";
 const Posts = () => {
   const { posts } = usePosts();
 
-  console.log(posts);
   return (
     <>
       <h1 className="text-4xl font-black">Posts</h1>

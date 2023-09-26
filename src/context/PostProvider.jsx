@@ -14,6 +14,30 @@ const PostProvider = ({ children }) => {
   });
 
   const [alert, setAlert] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  const getPost = async (id) => {
+
+    try {
+   
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/posts/${id}`,
+        getBearerConfigToken()
+      );
+        
+      setPost(data)
+      
+      setAlert({
+        msg: data.msg,
+        error: false,
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false)
+    }
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,7 +79,9 @@ const PostProvider = ({ children }) => {
       value={{
         post,
         alert,
+        loading,
         setPost,
+        getPost,
         handleSubmit,
       }}
     >

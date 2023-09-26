@@ -1,3 +1,4 @@
+
 import useAuth from "../../hooks/useAuth";
 import TagSelector from "./TagSelector";
 import UsersSelector from "./UsersSelector";
@@ -7,11 +8,13 @@ import Alert from "../Alert";
 const FormPost = () => {
   const { auth } = useAuth();
   const {post, setPost, alert, handleSubmit} = usePost();
-
+  
   const [role] = auth.roles;
 
   const {msg} = alert;
 
+  const {title, body }  = post;
+  
   return (
     <form 
         className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow"
@@ -34,6 +37,7 @@ const FormPost = () => {
           placeholder="Descripción del titulo"
           required
           onChange={(e) => {setPost({...post, [e.target.name] : e.target.value })}}
+          value={title}
           
         />
       </div>
@@ -51,6 +55,7 @@ const FormPost = () => {
           placeholder="Descripción del titulo"
           onChange={(e) => {setPost({...post, [e.target.name] : e.target.value })}}
           required
+          value={body}
         />
       </div>
 
@@ -80,7 +85,7 @@ const FormPost = () => {
         </label>
 
         <TagSelector 
-          tag={}
+          
         />
       </div>
 

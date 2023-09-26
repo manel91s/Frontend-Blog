@@ -15,7 +15,8 @@ import { PostProvider } from "./context/PostProvider";
 import ProtectedRoute from "./layouts/ProtectedRoute";
 import Posts from "./pages/backoffice/Posts";
 import NewPost from "./pages/backoffice/NewPost";
-import Post from "./pages/backoffice/Post";
+import EditPost from "./pages/backoffice/EditPost";
+
 function App() {
   return (
     <>
@@ -41,7 +42,7 @@ function App() {
                 <Route path="/posts" element={<ProtectedRoute />}>
                   <Route index element={<Posts />} />
                   <Route path="new-post" element={<NewPost />} />
-                  <Route path=":id" element={<Post />} />
+                  <Route path=":id" element={<EditPost />} />
                 </Route>
               </Routes>
             </PostProvider>

@@ -8,6 +8,7 @@ const TagSelector = () => {
 
   const [tags, setTags] = useState([]);
   const {post, setPost} = usePost();
+  const {selected, setSelected} = useState('');
 
   const getOptionsSelected = (e) => {
     
@@ -60,7 +61,7 @@ const TagSelector = () => {
     >
 
     {tags.length ? tags.map((tag, index) => (
-       <option key={index} value={`${tag.id}`}>{tag.name}</option>
+       <option selected = {post.tags.some((postTagId) => postTagId === tag.id)} key={index} value={`${tag.id}`}>{tag.name}</option>
     )) : 'No hay tags'}
     </select>
     

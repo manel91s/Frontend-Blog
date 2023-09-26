@@ -34,7 +34,6 @@ const AuthProvider = ({ children }) => {
         );
         
         setAuth(data);
-        navigate('/posts');
       } catch (error) {
         setAuth({})
        

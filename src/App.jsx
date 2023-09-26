@@ -10,17 +10,19 @@ import ConfirmAccount from "./pages/backoffice/ConfirmAccount";
 import RestorePassword from "./pages/backoffice/RestorePassword";
 import { AuthProvider } from "./context/AuthProvider";
 import { UsersProvider } from "./context/UsersProvider";
+import { PostsProvider } from "./context/PostsProvider";
 import { PostProvider } from "./context/PostProvider";
 import ProtectedRoute from "./layouts/ProtectedRoute";
 import Posts from "./pages/backoffice/Posts";
 import NewPost from "./pages/backoffice/NewPost";
-
+import Post from "./pages/backoffice/Post";
 function App() {
   return (
     <>
       <BrowserRouter>
         <AuthProvider>
           <UsersProvider>
+            <PostsProvider>
             <PostProvider>
               <Routes>
                 <Route path="/" element={<AuthLayout />}>
@@ -39,9 +41,11 @@ function App() {
                 <Route path="/posts" element={<ProtectedRoute />}>
                   <Route index element={<Posts />} />
                   <Route path="new-post" element={<NewPost />} />
+                  <Route path=":id" element={<Post />} />
                 </Route>
               </Routes>
             </PostProvider>
+            </PostsProvider>
           </UsersProvider>
         </AuthProvider>
       </BrowserRouter>

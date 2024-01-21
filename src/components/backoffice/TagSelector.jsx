@@ -39,12 +39,11 @@ const TagSelector = () => {
 
           setTags(data);
       } catch (error) {
-          console.log(error);
+        
       }
       };
       getTags();
 
-      return () => {};
   }, []);
 
  
@@ -52,18 +51,18 @@ const TagSelector = () => {
     <select
       name="tags"
       multiple
+      value={post.tags}
       className="border w-full p-2 mt-2 placeholder-gray-400 rounded-md"
       placeholder="Descripción del titulo"
       onChange={getOptionsSelected}
       required
-     
     >
-
-    {tags.length ? tags.map((tag, index) => (
-       <option key={index} value={`${tag.id}`}>{tag.name}</option>
-    )) : 'No hay tags'}
+      
+      {tags.length ? tags.map((tag, index) => (
+        <option key={index} value={`${tag.id}`}>{tag.name}</option>
+      )) : null}
     </select>
-    
+
   );
 };
 

@@ -1,4 +1,5 @@
 import FormPost from "../../components/backoffice/FormPost"
+
 const NewPost = () => {
  
   return (
@@ -6,7 +7,7 @@ const NewPost = () => {
       <h1 className="text-4xl font-black">Crear Post</h1>
 
       <div className="mt-10 flex justify-center">
-          <FormPost />  
+        <FormPost />
       </div>
     </>
   )

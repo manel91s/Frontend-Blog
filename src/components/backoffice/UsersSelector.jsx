@@ -64,7 +64,7 @@ const UsersSelector = () => {
             name="avatar"
             id="avatar"
             className="w-20 h-auto max-w-lg rounded-lg rounded-full"
-            src={`${import.meta.env.VITE_BACKEND_URL}/api/images/${image}`}
+            src={`${import.meta.env.VITE_BACKEND_URL}/api/images/avatar/${image}`}
           ></img>
         </div>
       ) : (
@@ -72,6 +72,7 @@ const UsersSelector = () => {
       )}
       <select
         name="user"
+        defaultValue="1"
         className="w-full md:flex-1 border p-2 mt-2 placeholder-gray-400 rounded-md"
         onChange={handleChange}
       >

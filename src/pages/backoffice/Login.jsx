@@ -31,13 +31,14 @@ const Login = () => {
     );
   }
 
-  const fetchApiLogin = async () => {
+  const fetchApiLogin = async (token) => {
       return await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/user/login`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ email, password }),
         }
@@ -65,17 +66,20 @@ const Login = () => {
 
     try {
 
-      const getUser = await fetchApiLogin();
+      const getToken = await fetchApiGetToken();
+      const { token } = await getToken.json();
+     
+      const getUser = await fetchApiLogin(token);
       const user = await getUser.json();
 
       if(getUser.status !== 200) throw new Error(user.msg);
 
-      const getToken = await fetchApiGetToken();
-      const { token } = await getToken.json();
-      setAlert({});
       localStorage.setItem('token', token);
+
       setAuth(user);
+      setAlert({});
       navigate('/posts');
+      
     } catch (error) {
 
       const msg = error.response ? error.response.data : error.message;

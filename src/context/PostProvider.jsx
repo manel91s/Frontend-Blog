@@ -14,6 +14,59 @@ const PostProvider = ({ children }) => {
   });
 
   const [alert, setAlert] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  const clearPost = () => {
+
+    setLoading(false);
+
+    setPost({
+      title: "",
+      body: "",
+      tags: [],
+      image: "",
+      user: ""
+    })
+  }
+  const getPost = async (id) => {
+   
+    setLoading(true);
+    
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/posts/${id}`,
+        getBearerConfigToken()
+      );
+        
+      setPost(data);
+  
+      setAlert({
+        msg: data.msg,
+        error: false,
+      });
+    } catch (error) {
+     
+    } finally {
+      setLoading(false)
+    }
+  };
+
+  const savePost = async (formData) => {
+    return await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/post/save`,
+      formData,
+      getBearerConfigToken(true)
+    );
+  }
+
+  const updatePost = async (formData) => {
+    
+    return await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/post/update/${post.id}`,
+      formData,
+      getBearerConfigToken(true)
+    );
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +80,7 @@ const PostProvider = ({ children }) => {
       });
       return;
     }
-
+    
     try {
       const formData = new FormData();
       formData.append("title", title);
@@ -35,16 +88,13 @@ const PostProvider = ({ children }) => {
       formData.append("tags", tags);
       formData.append("image", image);
 
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/post/save`,
-        formData,
-        getBearerConfigToken()
-      );
-
+      const { data } = post.id ? await updatePost(formData) : await savePost(formData);
+      
       setAlert({
         msg: data.msg,
         error: false,
       });
+ 
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +105,11 @@ const PostProvider = ({ children }) => {
       value={{
         post,
         alert,
+        loading,
+        setLoading,
         setPost,
+        getPost,
+        clearPost,
         handleSubmit,
       }}
     >

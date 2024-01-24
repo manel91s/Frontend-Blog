@@ -8,6 +8,7 @@ const TagSelector = () => {
 
   const [tags, setTags] = useState([]);
   const {post, setPost} = usePost();
+  const {selected, setSelected} = useState('');
 
   const getOptionsSelected = (e) => {
     

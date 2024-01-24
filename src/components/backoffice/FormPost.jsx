@@ -1,4 +1,3 @@
-
 import useAuth from "../../hooks/useAuth";
 import { useParams } from 'react-router-dom';
 import { useEffect } from "react";
@@ -6,6 +5,7 @@ import usePost from "../../hooks/usePost";
 import TagSelector from "./TagSelector";
 import UsersSelector from "./UsersSelector";
 import Alert from "../Alert";
+import Loading from "../Loading";
 
 const FormPost = () => {
   const { auth } = useAuth();
@@ -31,7 +31,7 @@ const FormPost = () => {
 
   console.log(post);
 
-  if(loading) return 'Cargando...';
+  if(loading) return <Loading />
   
   return (
     <form
